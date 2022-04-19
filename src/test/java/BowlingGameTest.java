@@ -1,30 +1,50 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class BowlingGameTest {
+
+    private  Game g;
+
+    @BeforeEach
+    void setUp() {
+         g = new Game();
+    }
+
+    private void rollMany(int rolls, int pins) {
+        for (int i = 0; i < rolls; i++)
+            g.roll(pins);
+    }
+
     @Test
     public void testNewGame()  {
-        Game g = new Game();
         assertNotNull(g);
     }
 
     @Test
     public void testGutterGame()  {
-        Game g = new Game();
-        for (int i = 0; i < 20; i++) {
-            g.roll(0);
-        }
+       int rolls = 20;
+       int pins = 0;
+       rollMany(rolls, pins);
         assertEquals(0, g.score());
     }
 
     @Test
-    public void testAllOnes() throws Exception {
-        Game g = new Game();
-        for (int i = 0; i < 20; i++)
-            g.roll(1);
+    public void testAllOnes()  {
+        rollMany(20,1);
         assertEquals(20, g.score());
     }
+
+    @Test
+    public void testOneSpare() {
+        g.roll(5);
+        g.roll(5); // spare
+        g.roll(3);
+        rollMany(17,0);
+        assertEquals(16,g.score());
+    }
+
 }
 
