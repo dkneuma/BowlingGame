@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BowlingGameTest {
 
@@ -10,7 +9,7 @@ public class BowlingGameTest {
 
     @BeforeEach
     void setUp() {
-         g = new Game();
+        g = new Game();
     }
 
     private void rollMany(int rolls, int pins) {
@@ -25,9 +24,9 @@ public class BowlingGameTest {
 
     @Test
     public void testGutterGame()  {
-       int rolls = 20;
-       int pins = 0;
-       rollMany(rolls, pins);
+        int rolls = 20;
+        int pins = 0;
+        rollMany(rolls, pins);
         assertEquals(0, g.score());
     }
 
@@ -44,6 +43,11 @@ public class BowlingGameTest {
         g.roll(3);
         rollMany(17,0);
         assertEquals(16,g.score());
+    }
+    @Test
+    public void testPerfectGame() throws Exception {
+        rollMany(12,10);
+        assertEquals(300, g.score());
     }
 
 }
